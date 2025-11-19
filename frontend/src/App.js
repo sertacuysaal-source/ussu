@@ -145,7 +145,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-4xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                BIST Hisse Tarama
+                BIST Hisse Tarama Osmanlı Yatırım Uğur
               </h1>
               <p className="text-slate-600 mt-1 text-sm">Teknik analiz tabanlı otomatik sinyal sistemi</p>
             </div>
