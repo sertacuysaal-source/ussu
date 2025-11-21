@@ -145,18 +145,19 @@ function App() {
       <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-10 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            
-  <div className="flex items-center gap-4">
-  <img src="/logo.png" alt="Site Logo" className="h-12 w-auto" /> {/* logo burada */}
-  <div>
-    <h1 className="text-4xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-      BIST Hisse Tarama Osmanlı Yatırım Uğur
-    </h1>
-    <p className="text-slate-600 mt-1 text-sm">Teknik analiz tabanlı otomatik sinyal sistemi</p>
-  </div>
-</div>
 
+            {/* Logo + Başlık */}
+            <div className="flex items-center gap-4">
+              <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="Site Logo" className="h-12 w-auto" />
+              <div>
+                <h1 className="text-4xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                  BIST Hisse Tarama Osmanlı Yatırım Uğur
+                </h1>
+                <p className="text-slate-600 mt-1 text-sm">Teknik analiz tabanlı otomatik sinyal sistemi</p>
+              </div>
+            </div>
 
+            {/* Tarama Butonu */}
             <Button 
               onClick={handleScan} 
               disabled={loading}
@@ -176,9 +177,11 @@ function App() {
                 </>
               )}
             </Button>
+
           </div>
         </div>
       </header>
+
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
