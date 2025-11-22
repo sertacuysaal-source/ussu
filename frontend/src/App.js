@@ -20,6 +20,8 @@ function App() {
   const [signals, setSignals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
+  const [searchText, setSearchText] = useState("");
+
 
   const handleScan = async () => {
     setLoading(true);
@@ -142,6 +144,8 @@ function App() {
     TUT: filterSignals("TUT").length,
   };
 
+  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
@@ -192,6 +196,8 @@ function App() {
               Teknik analiz tabanlı otomatik sinyal sistemi
             </p>
           </div>
+
+              
           
         {signals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20" data-testid="empty-state">
@@ -204,41 +210,58 @@ function App() {
             </p>
           </div>
         ) : (
-          <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-5 mb-8 bg-white p-1 shadow-sm" data-testid="signal-tabs">
-              <TabsTrigger value="all" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white transition-all">
-                Tümü ({signalCounts.all})
-              </TabsTrigger>
-              <TabsTrigger value="GÜÇLÜ AL" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white transition-all">
-                Güçlü Al ({signalCounts["GÜÇLÜ AL"]})
-              </TabsTrigger>
-              <TabsTrigger value="AL" className="data-[state=active]:bg-emerald-500 data-[state=active]:text-white transition-all">
-                Al ({signalCounts.AL})
-              </TabsTrigger>
-              <TabsTrigger value="SAT" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white transition-all">
-                Sat ({signalCounts.SAT})
-              </TabsTrigger>
-              <TabsTrigger value="TUT" className="data-[state=active]:bg-slate-400 data-[state=active]:text-white transition-all">
-                Tut ({signalCounts.TUT})
-              </TabsTrigger>
-            </TabsList>
+          <>
+            {/* Arama input */}
+            <div className="max-w-md mx-auto mb-6">
+              <input
+                type="text"
+                placeholder="Hisse ara..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
 
-            {["all", "GÜÇLÜ AL", "AL", "SAT", "TUT"].map((tab) => (
-              <TabsContent key={tab} value={tab} className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid={`${tab}-signals-grid`}>
-                  {filterSignals(tab).map((signal, idx) => (
-                    <SignalCard key={idx} signal={signal} />
-                  ))}
-                </div>
-                {filterSignals(tab).length === 0 && (
-                  <div className="text-center py-12 text-slate-500">
-                    Bu kategoride sinyal bulunamadı.
+            {/* Tabs ve SignalCard */}
+            <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
+              <TabsList className="grid w-full grid-cols-5 mb-8 bg-white p-1 shadow-sm" data-testid="signal-tabs">
+                <TabsTrigger value="all" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white transition-all">
+                  Tümü ({signalCounts.all})
+                </TabsTrigger>
+                <TabsTrigger value="GÜÇLÜ AL" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white transition-all">
+                  Güçlü Al ({signalCounts["GÜÇLÜ AL"]})
+                </TabsTrigger>
+                <TabsTrigger value="AL" className="data-[state=active]:bg-emerald-500 data-[state=active]:text-white transition-all">
+                  Al ({signalCounts.AL})
+                </TabsTrigger>
+                <TabsTrigger value="SAT" className="data-[state=active]:bg-rose-500 data-[state=active]:text-white transition-all">
+                  Sat ({signalCounts.SAT})
+                </TabsTrigger>
+                <TabsTrigger value="TUT" className="data-[state=active]:bg-slate-400 data-[state=active]:text-white transition-all">
+                  Tut ({signalCounts.TUT})
+                </TabsTrigger>
+              </TabsList>
+
+              {["all", "GÜÇLÜ AL", "AL", "SAT", "TUT"].map((tab) => (
+                <TabsContent key={tab} value={tab} className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid={`${tab}-signals-grid`}>
+                    {filterSignals(tab)
+                      .filter((signal) => signal.symbol.toLowerCase().includes(searchText.toLowerCase()))
+                      .map((signal, idx) => (
+                        <SignalCard key={idx} signal={signal} />
+                      ))}
                   </div>
-                )}
-              </TabsContent>
-            ))}
-          </Tabs>
+                  {filterSignals(tab)
+                    .filter((signal) => signal.symbol.toLowerCase().includes(searchText.toLowerCase()))
+                    .length === 0 && (
+                    <div className="text-center py-12 text-slate-500">Bu kategoride sinyal bulunamadı.</div>
+                  )}
+                </TabsContent>
+              ))}
+            </Tabs>
+          </>
         )}
+
       </main>
     </div>
   );
