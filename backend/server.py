@@ -44,21 +44,81 @@ class ScanRequest(BaseModel):
 
 # ----- BIST Sembolleri -----
 BIST_SYMBOLS = [
-    "ASELS.IS", "EREGL.IS", "KCHOL.IS", "SAHOL.IS", "PETKM.IS", "SISE.IS", "THYAO.IS",
-    "TUPRS.IS", "AKBNK.IS", "GARAN.IS", "HALKB.IS", "ISCTR.IS", "VAKBNK.IS", "YKBNK.IS",
-    "BIMAS.IS", "KOZAL.IS", "KOZAA.IS", "TAVHL.IS", "TOASO.IS", "FROTO.IS", "ARCLK.IS",
-    "ENKAI.IS", "SODA.IS", "GUBRF.IS", "TTKOM.IS", "ECILC.IS", "ISGYO.IS", "DOHOL.IS",
-    "MGROS.IS", "LOGO.IS", "PGSUS.IS", "AEFES.IS", "OTKAR.IS", "VESTL.IS", "ODAS.IS",
-    "KORDS.IS", "TSKB.IS", "AKSEN.IS", "ALARK.IS", "SOKM.IS", "ULKER.IS", "BRYAT.IS",
-    "AGHOL.IS", "MAVI.IS", "GESAN.IS", "TTRAK.IS", "AKENR.IS", "KLMSN.IS", "BASGZ.IS",
-    "SKBNK.IS", "CVKMD.IS", "ASUZU.IS", "EGEEN.IS", "ENJSA.IS", "MPARK.IS", "CANTE.IS",
-    "BERA.IS", "AKSA.IS", "CEMTS.IS", "HEKTS.IS", "IZMDC.IS", "TKFEN.IS", "BUCIM.IS",
-    "YUNSA.IS", "ZOREN.IS", "GOZDE.IS", "KONTR.IS", "PRKME.IS", "SNGYO.IS", "GENIL.IS",
-    "OYAKC.IS", "BAGFS.IS", "KARSN.IS", "KARTN.IS", "NETAS.IS", "BRISA.IS", "VESBE.IS",
-    "KSTUR.IS", "ALGYO.IS", "MIATK.IS", "IPEKE.IS", "GSDHO.IS", "INDES.IS", "SNPAM.IS",
-    "ANSGR.IS", "TCELL.IS", "CLEBI.IS", "CRFSA.IS", "ALCTL.IS", "BRKSN.IS", "KLKIM.IS",
-    "CCOLA.IS", "CIMSA.IS", "ADEL.IS", "DOAS.IS", "GOODY.IS"
+    "QNBTR.IS", "ASELS.IS", "GARAN.IS", "ENKAI.IS", "KCHOL.IS", "TUPRS.IS", "THYAO.IS", "ISBTR.IS", "ISCTR.IS", "ISKUR.IS",
+    "FROTO.IS", "BIMAS.IS", "AKBNK.IS", "YKBNK.IS", "DSTKF.IS", "VAKBN.IS", "KLRHO.IS", "HALKB.IS", "TCELL.IS", "TTKOM.IS",
+    "TERA.IS", "PKENT.IS", "EREGL.IS", "SAHOL.IS", "KENT.IS", "CCOLA.IS", "SASA.IS", "KOZAL.IS", "TURSG.IS", "KLNMA.IS",
+    "QNBFK.IS", "TOASO.IS", "GUBRF.IS", "SISE.IS", "OYAKC.IS", "ZRGYO.IS", "PGSUS.IS", "ISDMR.IS", "TAVHL.IS", "ENERY.IS",
+    "PASEU.IS", "HEDEF.IS", "DOCO.IS", "MGROS.IS", "MAGEN.IS", "ASTOR.IS", "ENJSA.IS", "AEFES.IS", "UFUK.IS", "EKGYO.IS",
+    "TRGYO.IS", "ECILC.IS", "RALYH.IS", "AHGAZ.IS", "BRSAN.IS", "PEKGY.IS", "BRYAT.IS", "AGHOL.IS", "AKSEN.IS", "ARCLK.IS",
+    "TABGD.IS", "MPARK.IS", "ISMEN.IS", "POLHO.IS", "GLRMK.IS", "RGYAS.IS", "GENIL.IS", "OTKAR.IS", "TBORG.IS", "TTRAK.IS",
+    "LIDER.IS", "SMRVA.IS", "EFOR.IS", "AYGAZ.IS", "KLSER.IS", "DOHOL.IS", "ANSGR.IS", "SELEC.IS", "PETKM.IS", "CIMSA.IS",
+    "ULKER.IS", "DOAS.IS", "ANHYT.IS", "ECZYT.IS", "ALARK.IS", "RYGYO.IS", "AKSA.IS", "CLEBI.IS", "KOZAA.IS", "AGESA.IS",
+    "RAYSG.IS", "GRTHO.IS", "LYDHO.IS", "INVES.IS", "TSKB.IS", "NUHCM.IS", "YGGYO.IS", "POLTK.IS", "GRSEL.IS", "DAPGM.IS",
+    "MAVI.IS", "IEYHO.IS", "CMENT.IS", "KTLEV.IS", "BASGZ.IS", "KRDMA.IS", "KRDMB.IS", "KRDMD.IS", "RYSAS.IS", "CWENE.IS",
+    "HEKTS.IS", "SOKM.IS", "BRISA.IS", "TKFEN.IS", "BSOKE.IS", "ODINE.IS", "TEHOL.IS", "KONYA.IS", "AKCNS.IS", "IZENR.IS",
+    "LYDYE.IS", "EGEEN.IS", "KLYPV.IS", "CVKMD.IS", "GLYHO.IS", "NTHOL.IS", "BTCIM.IS", "OZKGY.IS", "AVPGY.IS", "KCAER.IS",
+    "IPEKE.IS", "MOGAN.IS", "GESAN.IS", "AKFYE.IS", "BALSU.IS", "BFREN.IS", "SKBNK.IS", "BINBN.IS", "ARMGD.IS", "EUPWR.IS",
+    "KONTR.IS", "ALBRK.IS", "SNGYO.IS", "ENTRA.IS", "OBAMS.IS", "ISGYO.IS", "GSRAY.IS", "MIATK.IS", "BMSTL.IS", "MRSHL.IS",
+    "TATEN.IS", "AKSGY.IS", "SUNTK.IS", "KUYAS.IS", "TRHOL.IS", "BANVT.IS", "ZOREN.IS", "PATEK.IS", "ALFAS.IS", "ARASE.IS",
+    "CANTE.IS", "LOGO.IS", "ATATP.IS", "SMRTG.IS", "LILAK.IS", "SARKY.IS", "FZLGY.IS", "FENER.IS", "LMKDC.IS", "ALTNY.IS",
+    "ESEN.IS", "HLGYO.IS", "HTTBT.IS", "PSGYO.IS", "CRFSA.IS", "KLKIM.IS", "CEMZY.IS", "ISKPL.IS", "KZBGY.IS", "AKFIS.IS",
+    "ASUZU.IS", "EGPRO.IS", "BINHO.IS", "ISFIN.IS", "YEOTK.IS", "JANTS.IS", "AYDEM.IS", "ADGYO.IS", "VESBE.IS", "KSTUR.IS",
+    "EUREN.IS", "ENSRI.IS", "ULUSE.IS", "DEVA.IS", "KOTON.IS", "OZATD.IS", "KAYSE.IS", "GWIND.IS", "BULGS.IS", "TMSN.IS",
+    "GEDIK.IS", "DOFRB.IS", "VSNMD.IS", "BERA.IS", "OYYAT.IS", "TUKAS.IS", "VERUS.IS", "ICBCT.IS", "YYLGD.IS", "MEGMT.IS",
+    "ALKLC.IS", "SONME.IS", "AKGRT.IS", "VAKFN.IS", "BIENY.IS", "DGGYO.IS", "AHSGY.IS", "AKFGY.IS", "BIOEN.IS", "VESTL.IS",
+    "ESCAR.IS", "AYCES.IS", "SDTTR.IS", "SRVGY.IS", "GARFA.IS", "GLCVY.IS", "QUAGR.IS", "ECOGR.IS", "INVEO.IS", "TRCAS.IS",
+    "EGGUB.IS", "INGRM.IS", "ALCAR.IS", "KORDS.IS", "TSPOR.IS", "IZMDC.IS", "VAKKO.IS", "BUCIM.IS", "BASCM.IS", "VKGYO.IS",
+    "KLGYO.IS", "HATSN.IS", "ADEL.IS", "EMKEL.IS", "AKENR.IS", "AGROT.IS", "KBORU.IS", "TNZTP.IS", "BOSSA.IS", "TUREX.IS",
+    "KARSN.IS", "TCKRC.IS", "OFSYM.IS", "EBEBK.IS", "ADESE.IS", "GIPTA.IS", "SURGY.IS", "MOBTL.IS", "ALGYO.IS", "BESLR.IS",
+    "IZFAS.IS", "AKMGY.IS", "GOZDE.IS", "BJKAS.IS", "A1CAP.IS", "PRKAB.IS", "ODAS.IS", "KAREL.IS", "MNDTR.IS", "GENTS.IS",
+    "HRKET.IS", "PARSN.IS", "KOPOL.IS", "GOKNR.IS", "BLUME.IS", "REEDR.IS", "YIGIT.IS", "EKOS.IS", "MOPAS.IS", "ALKA.IS",
+    "ASGYO.IS", "NTGAZ.IS", "KMPUR.IS", "TARKM.IS", "ATAKP.IS", "GEREL.IS", "AYEN.IS", "BOBET.IS", "KOCMT.IS", "MAALT.IS",
+    "PAGYO.IS", "NATEN.IS", "DOKTA.IS", "BARMA.IS", "KAPLM.IS", "ERCB.IS", "YBTAS.IS", "GMTAS.IS", "IHAAS.IS", "ENDAE.IS",
+    "BIGCH.IS", "KGYO.IS", "MERIT.IS", "SNPAM.IS", "KARTN.IS", "BORLS.IS", "TEZOL.IS", "GZNMI.IS", "BIGTK.IS", "DESA.IS",
+    "SUWEN.IS", "CGCAM.IS", "IHLAS.IS", "GOLTS.IS", "KRVGD.IS", "KONKA.IS", "INDES.IS", "BORSK.IS", "ORGE.IS", "DARDL.IS",
+    "ONCSM.IS", "ISGSY.IS", "KUVVA.IS", "INTEM.IS", "PENTA.IS", "SAFKR.IS", "CATES.IS", "PLTUR.IS", "HOROZ.IS", "CRDFA.IS",
+    "AFYON.IS", "ARSAN.IS", "ULUUN.IS", "CEMTS.IS", "LINK.IS", "SEGYO.IS", "FORTE.IS", "YATAS.IS", "EGEGY.IS", "TKNSA.IS",
+    "KZGYO.IS", "BIGEN.IS", "ALKIM.IS", "OZYSR.IS", "TSGYO.IS", "ARDYZ.IS", "FMIZP.IS", "MHRGY.IS", "BRKVY.IS", "ORMA.IS",
+    "IMASM.IS", "GUNDG.IS", "GSDHO.IS", "DMRGD.IS", "YUNSA.IS", "ALCTL.IS", "ANELE.IS", "AZTEK.IS", "TMPOL.IS", "BEGYO.IS",
+    "MACKO.IS", "NETAS.IS", "SOKE.IS", "ELITE.IS", "CEMAS.IS", "ALVES.IS", "USAK.IS", "DYOBY.IS", "GOODY.IS", "MNDRS.IS",
+    "EGEPO.IS", "FORMT.IS", "LRSHO.IS", "BAGFS.IS", "ONRYT.IS", "BVSAN.IS", "RUZYE.IS", "KUTPO.IS", "CMBTN.IS", "ERBOS.IS",
+    "HDFGS.IS", "INFO.IS", "HURGZ.IS", "DCTTR.IS", "KIMMR.IS", "YAPRK.IS", "SERNT.IS", "KATMR.IS", "PINSU.IS", "SAYAS.IS",
+    "HUNER.IS", "PNSUT.IS", "OSMEN.IS", "TURGG.IS", "LKMNH.IS", "EKSUN.IS", "EYGYO.IS", "MEKAG.IS", "KRGYO.IS", "PETUN.IS",
+    "PAPIL.IS", "MERCN.IS", "OTTO.IS", "TEKTU.IS", "SEGMN.IS", "DITAS.IS", "MEDTR.IS", "ISSEN.IS", "SANKO.IS", "BURCE.IS",
+    "DOFER.IS", "KTSKR.IS", "TATGD.IS", "BLCYT.IS", "KNFRT.IS", "DAGI.IS", "BRLSM.IS", "MRGYO.IS", "TRILC.IS", "ISBIR.IS",
+    "NUGYO.IS", "LUKSK.IS", "MARBL.IS", "BAHKM.IS", "PNLSN.IS", "ARTMS.IS", "DZGYO.IS", "MSGYO.IS", "DERHL.IS", "IHLGM.IS",
+    "BAKAB.IS", "BEYAZ.IS", "ARENA.IS", "FONET.IS", "TGSAS.IS", "MAKTK.IS", "PAMEL.IS", "GLRYH.IS", "PCILT.IS", "SANFM.IS",
+    "METRO.IS", "MTRKS.IS", "CELHA.IS", "SNICA.IS", "SKYLP.IS", "LIDFA.IS", "KRONT.IS", "ANGEN.IS", "PRKME.IS", "DUNYH.IS",
+    "CONSE.IS", "OZSUB.IS", "DNISI.IS", "VRGYO.IS", "UNLU.IS", "ESCOM.IS", "EDATA.IS", "INTEK.IS", "KLMSN.IS", "EDIP.IS",
+    "BURVA.IS", "KLSYN.IS", "EGSER.IS", "AYES.IS", "DOGUB.IS", "DGATE.IS", "DENGE.IS", "KRSTL.IS", "BMSCH.IS", "ULUFA.IS",
+    "ATEKS.IS", "TDGYO.IS", "YGYO.IS", "BIZIM.IS", "DMSAS.IS", "YYAPI.IS", "FRIGO.IS", "DGNMO.IS", "BYDNR.IS", "TLMAN.IS",
+    "VBTYZ.IS", "DURDO.IS", "SNKRN.IS", "DERIM.IS", "RTALB.IS", "AGYO.IS", "SKYMD.IS", "VERTU.IS", "MAKIM.IS", "VKING.IS",
+    "DURKN.IS", "MARTI.IS", "OSTIM.IS", "KFEIN.IS", "OZGYO.IS", "SUMAS.IS", "SODSN.IS", "EUHOL.IS", "TUCLK.IS", "A1YEN.IS",
+    "PKART.IS", "OBASE.IS", "IHGZT.IS", "RUBNS.IS", "YESIL.IS", "MERKO.IS", "BNTAS.IS", "CUSAN.IS", "MANAS.IS", "PENGD.IS",
+    "ZEDUR.IS", "RNPOL.IS", "HATEK.IS", "AVHOL.IS", "YAYLA.IS", "YKSLN.IS", "GSDDE.IS", "GLBMD.IS", "KRPLS.IS", "BAYRK.IS",
+    "KERVN.IS", "MMCAS.IS", "HKTM.IS", "AVGYO.IS", "GEDZA.IS", "MEPET.IS", "PRDGS.IS", "IZINV.IS", "NIBAS.IS", "SEYKM.IS",
+    "FADE.IS", "CEOEM.IS", "BRKO.IS", "EMNIS.IS", "AKSUE.IS", "BALAT.IS", "DESPC.IS", "ACSEL.IS", "COSMO.IS", "EPLAS.IS",
+    "YONGA.IS", "PSDTC.IS", "OYAYO.IS", "VANGD.IS", "SKTAS.IS", "IHYAY.IS", "MEGAP.IS", "AVOD.IS", "PRZMA.IS", "SILVR.IS",
+    "ETILR.IS", "SELVA.IS", "BRMEN.IS", "KRTEK.IS", "MARKA.IS", "OYLUM.IS", "FLAP.IS", "SEKFK.IS", "IHEVA.IS", "ARZUM.IS",
+    "SANEL.IS", "OZRDN.IS", "AKYHO.IS", "EKIZ.IS", "HUBVC.IS", "ULAS.IS", "SMART.IS", "AVTUR.IS", "BRKSN.IS", "SAMAT.IS",
+    "MZHLD.IS", "ATAGY.IS", "ERSU.IS", "VKFYO.IS", "ATSYH.IS", "RODRG.IS", "SEKUR.IS", "ETYAT.IS", "CASA.IS", "GRNYO.IS",
+    "IDGYO.IS", "ATLAS.IS", "MTRYO.IS", "ORCAY.IS", "EUKYO.IS", "DIRIT.IS", "EUYO.IS"
 ]
+
+
+
+# ----- BIST Grupları -----
+BIST_GROUPS = {
+    "Bankacılık": ["AKBNK.IS", "GARAN.IS", "HALKB.IS", "ISCTR.IS", "VAKBNK.IS", "YKBNK.IS", "SKBNK.IS"],
+    "Havacılık / Otomotiv": ["THYAO.IS", "TUPRS.IS", "TOASO.IS", "FROTO.IS", "TAVHL.IS"],
+    "Gıda / Perakende": ["BIMAS.IS", "AEFES.IS", "ULKER.IS", "MAVI.IS", "GOODY.IS"],
+    "Enerji / Petrol": ["PETKM.IS", "SISE.IS", "ECILC.IS", "ENKAI.IS"],
+    "Diğer": [s for s in BIST_SYMBOLS if s not in 
+              ["AKBNK.IS","GARAN.IS","HALKB.IS","ISCTR.IS","VAKBNK.IS","YKBNK.IS","SKBNK.IS",
+               "THYAO.IS","TUPRS.IS","TOASO.IS","FROTO.IS","TAVHL.IS",
+               "BIMAS.IS","AEFES.IS","ULKER.IS","MAVI.IS","GOODY.IS",
+               "PETKM.IS","SISE.IS","ECILC.IS","ENKAI.IS"]]
+}
 
 # ----- Memory Storage (Sonuçları tutmak için) -----
 latest_scan_results: List[StockSignal] = []
@@ -269,6 +329,34 @@ async def scan_stocks(request: ScanRequest):
     latest_scan_results = signals
 
     return signals
+
+
+from pydantic import BaseModel
+
+class GroupScanRequest(BaseModel):
+    group_name: str
+
+@api_router.post("/scan-group", response_model=List[StockSignal])
+async def scan_group(request: GroupScanRequest):
+    symbols = BIST_GROUPS.get(request.group_name, [])
+    if not symbols:
+        raise HTTPException(status_code=404, detail="Böyle bir grup bulunamadı")
+    
+    loop = asyncio.get_event_loop()
+    tasks = [loop.run_in_executor(executor, analyze_stock, symbol) for symbol in symbols]
+    results = await asyncio.gather(*tasks)
+    signals = [s for s in results if s is not None]
+
+    global latest_scan_results
+    latest_scan_results = signals
+    return signals
+
+
+@api_router.get("/groups")
+async def get_groups():
+    """Mevcut BIST gruplarını döndürür"""
+    return [{"name": k, "symbols": v} for k,v in BIST_GROUPS.items()]
+
 
 @api_router.get("/latest-signals", response_model=List[StockSignal])
 async def get_latest_signals():
