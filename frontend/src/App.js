@@ -1,4 +1,6 @@
 import { useState } from "react";
+import logo from "./assets/images/logo.PNG";
+
 import "@/App.css";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -149,7 +151,8 @@ function App() {
 
             {/* Logo + Başlık */}
             <div className="flex items-center gap-4">
-              <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="Site Logo" className="h-12 w-auto" />
+              <img src={logo} alt="Site Logo" className="h-12 w-auto" />
+
               <div>
                 <h1 className="text-4xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                   BIST Hisse Tarama Osmanlı Yatırım Uğur
