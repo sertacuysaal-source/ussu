@@ -1,5 +1,10 @@
-import { useState } from "react";
+
 import logo from "./assets/images/logo.PNG";
+
+import { useState, useEffect } from "react";
+
+
+
 
 import "@/App.css";
 import axios from "axios";
@@ -22,25 +27,53 @@ function App() {
   const [activeTab, setActiveTab] = useState("all");
   const [searchText, setSearchText] = useState("");
 
+  const [groups, setGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState("");
+
+// Seçilen gruba göre önceden taranmış sinyalleri filtrele
+const filteredSignals = signals.filter(signal => {
+  if (!selectedGroup) return true; // Grup seçilmediyse tümünü göster
+  const group = groups.find(g => g.name === selectedGroup);
+  const groupSymbols = group?.symbols || [];
+  return groupSymbols.includes(signal.symbol + ".IS"); // .IS eklemeyi unutma
+});
+
+
+
+
+
+
+  useEffect(() => {
+  axios.get(`${API}/groups`).then(res => {
+    setGroups(res.data); // [{name:"Bankacılık", symbols:[...]}, {...}]
+  }).catch(err => {
+    console.error("Gruplar alınamadı:", err);
+  });
+}, []);
+
+
 
   const handleScan = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(`${API}/scan`, {});
-      setSignals(response.data);
-      toast.success(`${response.data.length} hisse tarandı`);
-    } catch (error) {
-      console.error("Scan error:", error);
-      toast.error("Tarama sırasında hata oluştu");
-    } finally {
-      setLoading(false);
-    }
+  setLoading(true);
+  try {
+    const response = await axios.post(`${API}/scan`, {}); // tüm hisseleri tarıyor
+    setSignals(response.data);
+    toast.success(`${response.data.length} hisse tarandı`);
+  } catch (error) {
+    console.error("Scan error:", error);
+    toast.error("Tarama sırasında hata oluştu");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+    const displaySignals = (signalType) => {
+    if (signalType === "all") return filteredSignals;
+    return filteredSignals.filter(s => s.signal === signalType);
   };
 
-  const filterSignals = (signalType) => {
-    if (signalType === "all") return signals;
-    return signals.filter((s) => s.signal === signalType);
-  };
 
   const getSignalBadgeColor = (signal) => {
     switch (signal) {
@@ -137,12 +170,14 @@ function App() {
   );
 
   const signalCounts = {
-    all: signals.length,
-    "GÜÇLÜ AL": filterSignals("GÜÇLÜ AL").length,
-    AL: filterSignals("AL").length,
-    SAT: filterSignals("SAT").length,
-    TUT: filterSignals("TUT").length,
-  };
+  all: filteredSignals.length,
+  "GÜÇLÜ AL": filteredSignals.filter(s => s.signal === "GÜÇLÜ AL").length,
+  AL: filteredSignals.filter(s => s.signal === "AL").length,
+  SAT: filteredSignals.filter(s => s.signal === "SAT").length,
+  TUT: filteredSignals.filter(s => s.signal === "TUT").length,
+};
+
+
 
   
 
@@ -155,6 +190,22 @@ function App() {
         <h1 className="text-xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
           BIST Hisse Tarama Osmanlı Yatırım Uğur
         </h1>
+
+
+        <div className="max-w-md mx-auto mb-4">
+          <select
+            value={selectedGroup}
+            onChange={(e) => setSelectedGroup(e.target.value)}
+            className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="">Tüm Gruplar</option>
+            {groups.map((g, idx) => (
+              <option key={idx} value={g.name}>{g.name}</option> 
+            ))}
+          </select>
+        </div>
+
+
 
         {/* Tarama Butonu */}
         <Button 
@@ -243,21 +294,25 @@ function App() {
               </TabsList>
 
               {["all", "GÜÇLÜ AL", "AL", "SAT", "TUT"].map((tab) => (
-                <TabsContent key={tab} value={tab} className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid={`${tab}-signals-grid`}>
-                    {filterSignals(tab)
-                      .filter((signal) => signal.symbol.toLowerCase().includes(searchText.toLowerCase()))
-                      .map((signal, idx) => (
-                        <SignalCard key={idx} signal={signal} />
-                      ))}
-                  </div>
-                  {filterSignals(tab)
+              <TabsContent key={tab} value={tab} className="mt-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-testid={`${tab}-signals-grid`}>
+                  {filteredSignals
+                    .filter((signal) => tab === "all" || signal.signal === tab)
                     .filter((signal) => signal.symbol.toLowerCase().includes(searchText.toLowerCase()))
-                    .length === 0 && (
+                    .map((signal, idx) => (
+                      <SignalCard key={idx} signal={signal} />
+                    ))
+                  }
+                </div>
+                {filteredSignals
+                  .filter((signal) => tab === "all" || signal.signal === tab)
+                  .filter((signal) => signal.symbol.toLowerCase().includes(searchText.toLowerCase()))
+                  .length === 0 && (
                     <div className="text-center py-12 text-slate-500">Bu kategoride sinyal bulunamadı.</div>
-                  )}
-                </TabsContent>
-              ))}
+                )}
+              </TabsContent>
+            ))}"
+
             </Tabs>
           </>
         )}
