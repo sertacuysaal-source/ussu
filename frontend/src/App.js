@@ -145,46 +145,46 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-10 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-
-            {/* Logo + Başlık */}
-            <div className="flex items-center gap-4">
-              <img src={logo} alt="Site Logo" className="h-12 w-auto" />
-
-              <div>
-                <h1 className="text-4xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-                  BIST Hisse Tarama Osmanlı Yatırım Uğur
-                </h1>
-                <p className="text-slate-600 mt-1 text-sm">Teknik analiz tabanlı otomatik sinyal sistemi</p>
-              </div>
-            </div>
-
-            {/* Tarama Butonu */}
-            <Button 
-              onClick={handleScan} 
-              disabled={loading}
-              size="lg"
-              className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              data-testid="scan-button"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Taranıyor...
-                </>
-              ) : (
-                <>
-                  <Search className="mr-2 h-5 w-5" />
-                  Hisseleri Tara
-                </>
-              )}
-            </Button>
-
+      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-10 border-b border-slate-200 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+        {/* Logo + Başlık */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto text-center sm:text-left">
+          <img src={logo} alt="Site Logo" className="h-12 w-auto" />
+          <div>
+            <h1 className="text-xl sm:text-4xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+              BIST Hisse Tarama Osmanlı Yatırım Uğur
+            </h1>
+            <p className="text-slate-600 mt-1 text-sm">
+              Teknik analiz tabanlı otomatik sinyal sistemi
+            </p>
           </div>
         </div>
-      </header>
+
+        {/* Tarama Butonu */}
+        <Button 
+          onClick={handleScan} 
+          disabled={loading}
+          size="lg"
+          className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+          data-testid="scan-button"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Taranıyor...
+            </>
+          ) : (
+            <>
+              <Search className="mr-2 h-5 w-5" />
+              Hisseleri Tara
+            </>
+          )}
+        </Button>
+
+      </div>
+    </header>
+
 
 
       {/* Main Content */}
