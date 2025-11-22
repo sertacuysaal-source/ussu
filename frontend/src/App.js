@@ -145,21 +145,12 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-10 border-b border-slate-200 px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        
-        {/* Logo + Başlık */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto text-center sm:text-left">
-          <img src={logo} alt="Site Logo" className="h-12 w-auto" />
-          <div>
-            <h1 className="text-xl sm:text-4xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-              BIST Hisse Tarama Osmanlı Yatırım Uğur
-            </h1>
-            <p className="text-slate-600 mt-1 text-sm">
-              Teknik analiz tabanlı otomatik sinyal sistemi
-            </p>
-          </div>
-        </div>
+      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-10 border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        {/* Başlık */}
+        <h1 className="text-xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+          BIST Hisse Tarama Osmanlı Yatırım Uğur
+        </h1>
 
         {/* Tarama Butonu */}
         <Button 
@@ -181,14 +172,27 @@ function App() {
             </>
           )}
         </Button>
-
       </div>
     </header>
 
 
 
+
+
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Logo + Başlık Hero */}
+          <div className="flex flex-col items-center mb-8">
+            <img src={logo} alt="Site Logo" className="h-20 w-auto mb-4" /> 
+            
+
+
+            
+            <p className="text-slate-600 mt-1 text-sm">
+              Teknik analiz tabanlı otomatik sinyal sistemi
+            </p>
+          </div>
+          
         {signals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20" data-testid="empty-state">
             <div className="w-24 h-24 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-full flex items-center justify-center mb-6">
