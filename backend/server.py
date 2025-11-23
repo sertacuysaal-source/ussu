@@ -223,7 +223,7 @@ def analyze_stock(symbol: str) -> Optional[StockSignal]:
     try:
         ticker = yf.Ticker(symbol)
         # GÜNLÜK VERİ ÇEKİLİYOR
-        df = ticker.history(period="6mo")
+        df = ticker.history(period="1y")
         
         if df.empty or len(df) < 50:
             return None
