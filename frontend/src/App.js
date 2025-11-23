@@ -208,7 +208,7 @@ const filteredSignals = signals.filter(signal => {
             className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="" disabled hidden>
-              Seçiniz
+              Grup Seçin.
             </option>
             {groups.map((g, idx) => (
               <option key={idx} value={g.name}>{g.name}</option>
