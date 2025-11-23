@@ -40,8 +40,8 @@ class StockSignal(BaseModel):
     change_percent: Optional[float] = None
 
 class ScanRequest(BaseModel):
-    symbols: Optional[List[str]] = None
-
+    #symbols: Optional[List[str]] = None
+    group_name: str   # artık sadece grup adı gönderilecek
 # ----- BIST Sembolleri -----
 BIST_SYMBOLS = [
     "QNBTR.IS", "ASELS.IS", "GARAN.IS", "ENKAI.IS", "KCHOL.IS", "TUPRS.IS", "THYAO.IS", "ISBTR.IS", "ISCTR.IS", "ISKUR.IS",
@@ -113,6 +113,43 @@ BIST_GROUPS = {
     "Havacılık / Otomotiv": ["THYAO.IS", "TUPRS.IS", "TOASO.IS", "FROTO.IS", "TAVHL.IS"],
     "Gıda / Perakende": ["BIMAS.IS", "AEFES.IS", "ULKER.IS", "MAVI.IS", "GOODY.IS"],
     "Enerji / Petrol": ["PETKM.IS", "SISE.IS", "ECILC.IS", "ENKAI.IS"],
+    
+    
+    "BIST 100": [
+  "AEFES.IS","AGHOL.IS","AGROT.IS","AHGAZ.IS","AKBNK.IS","AKSA.IS","AKSEN.IS","ALARK.IS","ALFAS.IS","ALTNY.IS",
+  "ANHYT.IS","ANSGR.IS","ARCLK.IS","ARDYZ.IS","ASELS.IS","ASTOR.IS","AVPGY.IS","BERA.IS","BIMAS.IS","BRSAN.IS",
+  "BRYAT.IS","BSOKE.IS","BTCIM.IS","CANTE.IS","CCOLA.IS","CIMSA.IS","CLEBI.IS","CWENE.IS","DOAS.IS","DOHOL.IS",
+  "ECILC.IS","EFOR.IS","EGEEN.IS","EKGYO.IS","ENERY.IS","ENJSA.IS","ENKAI.IS","EREGL.IS","EUPWR.IS","FROTO.IS",
+  "GARAN.IS","GESAN.IS","GOLTS.IS","GRTHO.IS","GSRAY.IS","GUBRF.IS","HALKB.IS","HEKTS.IS","IEYHO.IS","ISCTR.IS",
+  "ISMEN.IS","KARSN.IS","KCAER.IS","KCHOL.IS","KONTR.IS","KONYA.IS","KOZAA.IS","KOZAL.IS","KRDMD.IS","KTLEV.IS",
+  "LMKDC.IS","MAGEN.IS","MAVI.IS","MGROS.IS","MIATK.IS","MPARK.IS","OBAMS.IS","ODAS.IS","OTKAR.IS","OYAKC.IS",
+  "PASEU.IS","PETKM.IS","PGSUS.IS","RALYH.IS","REEDR.IS","RYGYO.IS","SAHOL.IS","SASA.IS","SELEC.IS","SISE.IS",
+  "SKBNK.IS","SMRTG.IS","SOKM.IS","TABGD.IS","TAVHL.IS","TCELL.IS","THYAO.IS","TKFEN.IS","TOASO.IS","TSKB.IS",
+  "TTKOM.IS","TTRAK.IS","TUPRS.IS","TURSG.IS","ULKER.IS","VAKBN.IS","VESTL.IS","YEOTK.IS","YKBNK.IS","ZOREN.IS"
+    ],
+
+
+    "BIST 50": [
+    "AEFES.IS", "AKBNK.IS", "ALARK.IS", "ARCLK.IS", "ASELS.IS", "ASTOR.IS", "BIMAS.IS", "BRSAN.IS",
+    "CCOLA.IS", "CIMSA.IS", "DOAS.IS", "DOHOL.IS", "EKGYO.IS", "ENJSA.IS", "ENKAI.IS", "EREGL.IS",
+    "FROTO.IS", "GARAN.IS", "GUBRF.IS", "HALKB.IS", "HEKTS.IS", "ISCTR.IS", "KCHOL.IS", "KONTR.IS",
+    "KOZAA.IS", "KOZAL.IS", "KRDMD.IS", "MAVI.IS", "MGROS.IS", "MIATK.IS", "OYAKC.IS", "PETKM.IS",
+    "PGSUS.IS", "SAHOL.IS", "SASA.IS", "SISE.IS", "SOKM.IS", "TAVHL.IS", "TCELL.IS", "THYAO.IS",
+    "TKFEN.IS", "TOASO.IS", "TSKB.IS", "TTKOM.IS", "TUPRS.IS", "ULKER.IS", "VAKBN.IS", "VESTL.IS",
+    "YKBNK.IS", "ZOREN.IS"
+    ],
+
+    "BIST 30":[
+    "AEFES.IS", "AKBNK.IS", "ASELS.IS", "ASTOR.IS", "BIMAS.IS", "CIMSA.IS",
+    "EKGYO.IS", "ENKAI.IS", "EREGL.IS", "FROTO.IS", "GARAN.IS", "HEKTS.IS",
+    "ISCTR.IS", "KCHOL.IS", "KOZAL.IS", "KRDMD.IS", "MGROS.IS", "PETKM.IS",
+    "PGSUS.IS", "SAHOL.IS", "SASA.IS", "SISE.IS", "TAVHL.IS", "TCELL.IS",
+    "THYAO.IS", "TOASO.IS", "TTKOM.IS", "TUPRS.IS", "ULKER.IS", "YKBNK.IS"
+    ],
+
+
+
+
     "Diğer": [s for s in BIST_SYMBOLS if s not in 
               ["AKBNK.IS","GARAN.IS","HALKB.IS","ISCTR.IS","VAKBNK.IS","YKBNK.IS","SKBNK.IS",
                "THYAO.IS","TUPRS.IS","TOASO.IS","FROTO.IS","TAVHL.IS",
@@ -317,18 +354,30 @@ def analyze_stock(symbol: str) -> Optional[StockSignal]:
 
 @api_router.post("/scan", response_model=List[StockSignal])
 async def scan_stocks(request: ScanRequest):
-    """Belirtilen veya tüm BIST sembollerini tarar ve sinyal üretir."""
-    symbols = request.symbols if request.symbols else BIST_SYMBOLS
+    group_name = request.group_name
+    print(f"DEBUG: group_name = '{group_name}'")  # debug için
+
+    if group_name == "" or group_name == "Tüm Gruplar":
+        # Tüm gruplar
+        symbols = [s for group in BIST_GROUPS.values() for s in group]
+    else:
+        symbols = BIST_GROUPS.get(group_name, [])
+        if not symbols:
+            raise HTTPException(status_code=404, detail="Böyle bir grup bulunamadı")
+
     loop = asyncio.get_event_loop()
-    # Paralel analiz görevlerini başlat
     tasks = [loop.run_in_executor(executor, analyze_stock, symbol) for symbol in symbols]
     results = await asyncio.gather(*tasks)
     signals = [s for s in results if s is not None]
 
     global latest_scan_results
     latest_scan_results = signals
-
     return signals
+
+
+
+
+
 
 
 from pydantic import BaseModel
@@ -336,20 +385,7 @@ from pydantic import BaseModel
 class GroupScanRequest(BaseModel):
     group_name: str
 
-@api_router.post("/scan-group", response_model=List[StockSignal])
-async def scan_group(request: GroupScanRequest):
-    symbols = BIST_GROUPS.get(request.group_name, [])
-    if not symbols:
-        raise HTTPException(status_code=404, detail="Böyle bir grup bulunamadı")
-    
-    loop = asyncio.get_event_loop()
-    tasks = [loop.run_in_executor(executor, analyze_stock, symbol) for symbol in symbols]
-    results = await asyncio.gather(*tasks)
-    signals = [s for s in results if s is not None]
 
-    global latest_scan_results
-    latest_scan_results = signals
-    return signals
 
 
 @api_router.get("/groups")
