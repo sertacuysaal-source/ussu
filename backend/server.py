@@ -38,6 +38,9 @@ class StockSignal(BaseModel):
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     volume: Optional[float] = None
     change_percent: Optional[float] = None
+    color: Optional[str] = None  # sinyalin rengi (yeşil/kırmızı/gri)
+    
+
 
 class ScanRequest(BaseModel):
     #symbols: Optional[List[str]] = None
@@ -217,14 +220,34 @@ def calculate_wave_trend(high, low, close, n1=10, n2=21):
     wt2 = wt1.rolling(window=4).mean()
     return wt1, wt2
 
+
+
+def get_signal_color(signal: str, strength: float) -> str:
+    """
+    Sinyal ve güce göre renk döndürür.
+    - Güçlü AL / AL → yeşil
+    - Güçlü SAT / SAT → kırmızı
+    - Tut veya strength 0 → gri
+    """
+    signal_upper = signal.upper()
+
+    if signal_upper in ["AL", "GÜÇLÜ AL"]:
+        return "green"
+    elif signal_upper in ["SAT", "GÜÇLÜ SAT"]:
+        return "red"
+    else:
+        return "gray"
+
+
+
+
+
+
 # ----- Stock Analysis (Hisse Senedi Analizi Fonksiyonu) -----
 def analyze_stock(symbol: str) -> Optional[StockSignal]:
-    """Tek bir hisse senedini analiz eder ve sinyal üretir. KAMA, ST, WT, Hacim, EMA 8/20, EMA 200 kontrol edilir."""
     try:
         ticker = yf.Ticker(symbol)
-        # GÜNLÜK VERİ ÇEKİLİYOR
         df = ticker.history(period="1y")
-        
         if df.empty or len(df) < 50:
             return None
 
@@ -233,104 +256,149 @@ def analyze_stock(symbol: str) -> Optional[StockSignal]:
         low = df['Low']
         volume = df['Volume']
 
-        # --- İndikatör Hesaplamaları (İstenen Kriterler) ---
-        # 1. Trend (EMA)
+        # İndikatörler
         ema8 = EMAIndicator(close=close, window=8).ema_indicator()
         ema20 = EMAIndicator(close=close, window=20).ema_indicator()
         ema200 = EMAIndicator(close=close, window=200).ema_indicator()
-        
-        # 2. Özel Göstergeler (KAMA, SuperTrend, WaveTrend)
         kama = calculate_kama(close)
         supertrend, st_direction = calculate_supertrend(high, low, close)
-        wt1, wt2 = calculate_wave_trend(high, low, close) # WaveTrend hesaplaması
+        wt1, wt2 = calculate_wave_trend(high, low, close)
 
-        # --- Son Değerleri Alma ---
         current_price = close.iloc[-1]
         prev_price = close.iloc[-2]
-        
-        c_ema8 = ema8.iloc[-1]
-        c_ema20 = ema20.iloc[-1]
-        c_ema200 = ema200.iloc[-1] if len(df) > 200 else 0
-        
+        c_ema8, c_ema20, c_ema200 = ema8.iloc[-1], ema20.iloc[-1], ema200.iloc[-1] if len(df) > 200 else 0
         c_kama = kama.iloc[-1]
         c_st_dir = st_direction.iloc[-1]
 
-        # Hacim Oranı
         avg_vol = volume.rolling(window=20).mean().iloc[-1]
         c_vol = volume.iloc[-1]
         vol_ratio = c_vol / avg_vol if avg_vol > 0 else 0
 
-        # --- Puanlama ve Strateji ---
         conditions_met = []
         buy_score = 0
         sell_score = 0
 
-        # 1. WAVETREND KESİŞİM KONTROLÜ (SON 3 GÜN LOOKBACK - 20 Puan)
-        wt_cross_today = (wt1.iloc[-1] > wt2.iloc[-1]) and (wt1.iloc[-2] <= wt2.iloc[-2])
-        wt_cross_prev1 = (wt1.iloc[-2] > wt2.iloc[-2]) and (wt1.iloc[-3] <= wt2.iloc[-3])
-        wt_cross_prev2 = (wt1.iloc[-3] > wt2.iloc[-3]) and (wt1.iloc[-4] <= wt2.iloc[-4])
+        # --- AL koşulları ---
+        # ------------------------------------------------------------------
+        # BURAYA YENİ WAVE TREND MANTIĞI GELİYOR
+        # ------------------------------------------------------------------
+        
+        # ----- WAVETREND ÖZEL MANTIK (En Son Sinyal Geçerli) -----
+        wt_signal = None  # 'BUY', 'SELL' veya None
+        wt_msg = ""
+        
+        # 1. Öncelik: BUGÜN (Son Mum)
+        if (wt1.iloc[-1] > wt2.iloc[-1]) and (wt1.iloc[-2] <= wt2.iloc[-2]):
+            wt_signal = "BUY"
+            wt_msg = "WaveTrend Al Kesişimi (Bugün)"
+        elif (wt1.iloc[-1] < wt2.iloc[-1]) and (wt1.iloc[-2] >= wt2.iloc[-2]):
+            wt_signal = "SELL"
+            wt_msg = "WaveTrend Sat Kesişimi (Bugün)"
+        
+        # 2. Öncelik: DÜN (Bugün sinyal yoksa bakılır)
+        if wt_signal is None:
+            if (wt1.iloc[-2] > wt2.iloc[-2]) and (wt1.iloc[-3] <= wt2.iloc[-3]):
+                wt_signal = "BUY"
+                wt_msg = "WaveTrend Al Kesişimi (Dün)"
+            elif (wt1.iloc[-2] < wt2.iloc[-2]) and (wt1.iloc[-3] >= wt2.iloc[-3]):
+                wt_signal = "SELL"
+                wt_msg = "WaveTrend Sat Kesişimi (Dün)"
 
-        if wt_cross_today or wt_cross_prev1 or wt_cross_prev2:
+        # 3. Öncelik: 2 GÜN ÖNCE (Bugün ve Dün sinyal yoksa bakılır)
+        if wt_signal is None:
+            if (wt1.iloc[-3] > wt2.iloc[-3]) and (wt1.iloc[-4] <= wt2.iloc[-4]):
+                wt_signal = "BUY"
+                wt_msg = "WaveTrend Al Kesişimi (2 Gün Önce)"
+            elif (wt1.iloc[-3] < wt2.iloc[-3]) and (wt1.iloc[-4] >= wt2.iloc[-4]):
+                wt_signal = "SELL"
+                wt_msg = "WaveTrend Sat Kesişimi (2 Gün Önce)"
+
+        # ------------------------------------------------------------------
+        # YENİ WT KONTROLÜ SONA ERDİ
+
+        # WaveTrend Puanı (YENİ VE GÜNCEL PUANLAMA)
+        if wt_signal == "BUY":
             buy_score += 20
-            if wt_cross_today:
-                conditions_met.append("WaveTrend Al Kesişimi (Bugün)")
-            elif wt_cross_prev1:
-                conditions_met.append("WaveTrend Al Kesişimi (Dün)")
-            else:
-                conditions_met.append("WaveTrend Al Kesişimi (2 Gün Önce)")
+            conditions_met.append(wt_msg)
 
-        # 2. EMA 8/20 Kesişimi (20 Puan)
-        if c_ema8 > c_ema20:
+        # EMA 8/20
+        if c_ema8 > c_ema20: 
             buy_score += 20
             conditions_met.append("EMA8 > EMA20 (Kısa Vade Pozitif)")
-        
-        # 3. Fiyat > EMA 200 (Uzun Vadeli Trend - 15 Puan) -> Bu koşul isteğiniz üzerine eklenmiştir.
-        if current_price > c_ema200 and c_ema200 > 0:
-            buy_score += 15
-            conditions_met.append("Fiyat > EMA 200 Trendi") # Metin daha net olacak şekilde güncellendi
 
-        # 4. SuperTrend (20 Puan)
-        if c_st_dir == 1:
+        # Fiyat > EMA200
+        if current_price > c_ema200 and c_ema200 > 0: 
+            buy_score += 15
+            conditions_met.append("Fiyat > EMA200 Trendi")
+
+        # SuperTrend
+        if c_st_dir == 1: 
             buy_score += 20
             conditions_met.append("SuperTrend Pozitif")
 
-        # 5. KAMA (15 Puan)
-        if current_price > c_kama:
+        # KAMA
+        if current_price > c_kama: 
             buy_score += 15
             conditions_met.append("Fiyat KAMA Üstünde")
-        
-        # 6. Hacim Artışı (10 Puan)
-        if vol_ratio > 1.2:
+
+        # Hacim artışı
+        # Hacim artışı (AL için güncellendi)
+        if vol_ratio > 1.2 and current_price > c_kama: 
             buy_score += 10
+            conditions_met.append(f"Hacimli Yükseliş (KAMA Üzerinde, {vol_ratio:.1f}x)")
+
+        # --- SAT koşulları ---
+        if c_ema8 < c_ema20: 
+            sell_score += 20
+            conditions_met.append("EMA8 < EMA20 (Kısa Vade Negatif)")
+
+        if c_st_dir == -1: 
+            sell_score += 20
+            conditions_met.append("SuperTrend Negatif")
+
+        if current_price < c_kama: 
+            sell_score += 15
+            conditions_met.append("Fiyat KAMA Altında")
+
+        # WaveTrend Sat Kesişimi
+        # WaveTrend Puanı (YENİ VE GÜNCEL PUANLAMA)
+        if wt_signal == "SELL":
+            sell_score += 20
+            conditions_met.append(wt_msg)
+            
+     
+
+        # EMA200 altı
+        if current_price < c_ema200 and c_ema200 > 0:
+            sell_score += 15
+            conditions_met.append("Fiyat EMA200 Altında (Uzun Vadeli Negatif)")
+
+
+
+        # Hacim Artışı
+        # Eski Hacim artışı (SİLİNECEK)
+        if vol_ratio > 1.2: 
+            sell_score += 10
             conditions_met.append(f"Hacim Artışı ({vol_ratio:.1f}x)")
 
-        # SAT Koşulları (Karşıt Puanlama)
-        if c_ema8 < c_ema20: sell_score += 20
-        if c_st_dir == -1: sell_score += 25 
-        if current_price < c_kama: sell_score += 15
-        if wt1.iloc[-1] < wt2.iloc[-1]: sell_score += 15 # WaveTrend Satış
-
-        # KARAR MEKANİZMASI (Max Buy Skor: 100, Max Sell Skor: 75)
+        # --- Karar mekanizması ---
         signal = "TUT"
         final_strength = 0
-        
-        # AL Eşiği: 75 Puan ve üzeri (Max 100)
+
         if buy_score >= 75:
-            # GÜÇLÜ AL: Yüksek skor (90+) ve önemli hacim artışı (1.5x+)
             signal = "GÜÇLÜ AL" if buy_score >= 90 and vol_ratio > 1.5 else "AL"
-            final_strength = min(99.9, buy_score) 
-        elif sell_score >= 50:
-            signal = "SAT"
+            final_strength = min(99.9, buy_score)
+        elif sell_score >= 75:
+            signal = "GÜÇLÜ SAT" if sell_score >= 90 and vol_ratio > 1.5 else "SAT"
             final_strength = min(99.9, sell_score)
-            if not conditions_met: conditions_met.append("Teknik Göstergeler Negatif")
         else:
             signal = "TUT"
             final_strength = max(buy_score, sell_score) / 2
-            if not conditions_met: conditions_met.append("Nötr Görünüm")
+            if not conditions_met:
+                conditions_met.append("Nötr Görünüm")
 
         change_percent = ((current_price - prev_price) / prev_price * 100)
 
-        # JSON uyumluluğu için NaN/Inf temizliği
         def safe_float(val):
             if pd.isna(val) or np.isinf(val):
                 return 0.0
@@ -343,12 +411,15 @@ def analyze_stock(symbol: str) -> Optional[StockSignal]:
             signal_strength=safe_float(final_strength),
             conditions_met=conditions_met,
             volume=safe_float(c_vol),
-            change_percent=safe_float(change_percent)
+            change_percent=safe_float(change_percent),
+            color=get_signal_color(signal, final_strength)
         )
+
 
     except Exception as e:
         logger.error(f"Error analyzing {symbol}: {str(e)}")
         return None
+
 
 # ----- API Endpoints (FastAPI Yönlendirmeleri) -----
 
