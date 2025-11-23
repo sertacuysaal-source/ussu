@@ -54,10 +54,15 @@ const filteredSignals = signals.filter(signal => {
 
 
   const handleScan = async () => {
+  if (!selectedGroup) {
+    toast.error("Lütfen bir grup seçin");
+    return;
+  }
+
   setLoading(true);
   try {
     const response = await axios.post(`${API}/scan`, {
-      group_name: selectedGroup   // 🔥 seçilen grup backend'e gidiyor
+      group_name: selectedGroup
     });
     setSignals(response.data);
     toast.success(`${response.data.length} hisse tarandı`);
@@ -68,6 +73,7 @@ const filteredSignals = signals.filter(signal => {
     setLoading(false);
   }
 };
+
 
 
 
@@ -201,12 +207,15 @@ const filteredSignals = signals.filter(signal => {
             onChange={(e) => setSelectedGroup(e.target.value)}
             className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
-            <option value="">Tüm Gruplar</option>
+            <option value="" disabled hidden>
+              Seçiniz
+            </option>
             {groups.map((g, idx) => (
-              <option key={idx} value={g.name}>{g.name}</option> 
+              <option key={idx} value={g.name}>{g.name}</option>
             ))}
           </select>
         </div>
+
 
 
 
