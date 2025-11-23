@@ -194,53 +194,37 @@ const filteredSignals = signals.filter(signal => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-10 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-        {/* Başlık */}
-        <h1 className="text-xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-          BIST Hisse Tarama Osmanlı Yatırım Uğur
-        </h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          
+          <h1 className="text-xl font-bold text-slate-900 text-center sm:text-left">
+            BIST Hisse Tarama Osmanlı Yatırım Uğur
+          </h1>
 
-
-        <div className="max-w-md mx-auto mb-4">
-          <select
-            value={selectedGroup}
-            onChange={(e) => setSelectedGroup(e.target.value)}
-            className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          <Button 
+            onClick={handleScan} 
+            disabled={loading}
+            size="lg"
+            className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            <option value="" disabled hidden>
-              Grup Seçiniz.
-            </option>
-            {groups.map((g, idx) => (
-              <option key={idx} value={g.name}>{g.name}</option>
-            ))}
-          </select>
+            {loading ? <>Taranıyor...</> : <>Hisseleri Tara</>}
+          </Button>
+
+          <div className="w-full sm:w-auto">
+            <select
+              value={selectedGroup}
+              onChange={(e) => setSelectedGroup(e.target.value)}
+              className="w-full p-3 text-base border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="" disabled hidden>Grup Seçiniz</option>
+              {groups.map((g, idx) => (
+                <option key={idx} value={g.name}>{g.name}</option>
+              ))}
+            </select>
+          </div>
+
         </div>
+      </header>
 
-
-
-
-        {/* Tarama Butonu */}
-        <Button 
-          onClick={handleScan} 
-          disabled={loading}
-          size="lg"
-          className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-          data-testid="scan-button"
-        >
-          {loading ? (
-            <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              Taranıyor...
-            </>
-          ) : (
-            <>
-              <Search className="mr-2 h-5 w-5" />
-              Hisseleri Tara
-            </>
-          )}
-        </Button>
-      </div>
-    </header>
 
 
 
