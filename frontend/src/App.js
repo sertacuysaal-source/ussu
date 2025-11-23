@@ -56,7 +56,9 @@ const filteredSignals = signals.filter(signal => {
   const handleScan = async () => {
   setLoading(true);
   try {
-    const response = await axios.post(`${API}/scan`, {}); // tüm hisseleri tarıyor
+    const response = await axios.post(`${API}/scan`, {
+      group_name: selectedGroup   // 🔥 seçilen grup backend'e gidiyor
+    });
     setSignals(response.data);
     toast.success(`${response.data.length} hisse tarandı`);
   } catch (error) {
@@ -66,6 +68,7 @@ const filteredSignals = signals.filter(signal => {
     setLoading(false);
   }
 };
+
 
 
 
