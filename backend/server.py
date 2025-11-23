@@ -132,6 +132,70 @@ BIST_GROUPS = {
     ],
 
 
+    "BIST TUM": [
+    "QNBTR.IS", "ASELS.IS", "GARAN.IS", "ENKAI.IS", "KCHOL.IS", "TUPRS.IS", "THYAO.IS", "ISBTR.IS", "ISCTR.IS", "ISKUR.IS",
+    "FROTO.IS", "BIMAS.IS", "AKBNK.IS", "YKBNK.IS", "DSTKF.IS", "VAKBN.IS", "KLRHO.IS", "HALKB.IS", "TCELL.IS", "TTKOM.IS",
+    "TERA.IS", "PKENT.IS", "EREGL.IS", "SAHOL.IS", "KENT.IS", "CCOLA.IS", "SASA.IS", "KOZAL.IS", "TURSG.IS", "KLNMA.IS",
+    "QNBFK.IS", "TOASO.IS", "GUBRF.IS", "SISE.IS", "OYAKC.IS", "ZRGYO.IS", "PGSUS.IS", "ISDMR.IS", "TAVHL.IS", "ENERY.IS",
+    "PASEU.IS", "HEDEF.IS", "DOCO.IS", "MGROS.IS", "MAGEN.IS", "ASTOR.IS", "ENJSA.IS", "AEFES.IS", "UFUK.IS", "EKGYO.IS",
+    "TRGYO.IS", "ECILC.IS", "RALYH.IS", "AHGAZ.IS", "BRSAN.IS", "PEKGY.IS", "BRYAT.IS", "AGHOL.IS", "AKSEN.IS", "ARCLK.IS",
+    "TABGD.IS", "MPARK.IS", "ISMEN.IS", "POLHO.IS", "GLRMK.IS", "RGYAS.IS", "GENIL.IS", "OTKAR.IS", "TBORG.IS", "TTRAK.IS",
+    "LIDER.IS", "SMRVA.IS", "EFOR.IS", "AYGAZ.IS", "KLSER.IS", "DOHOL.IS", "ANSGR.IS", "SELEC.IS", "PETKM.IS", "CIMSA.IS",
+    "ULKER.IS", "DOAS.IS", "ANHYT.IS", "ECZYT.IS", "ALARK.IS", "RYGYO.IS", "AKSA.IS", "CLEBI.IS", "KOZAA.IS", "AGESA.IS",
+    "RAYSG.IS", "GRTHO.IS", "LYDHO.IS", "INVES.IS", "TSKB.IS", "NUHCM.IS", "YGGYO.IS", "POLTK.IS", "GRSEL.IS", "DAPGM.IS",
+    "MAVI.IS", "IEYHO.IS", "CMENT.IS", "KTLEV.IS", "BASGZ.IS", "KRDMA.IS", "KRDMB.IS", "KRDMD.IS", "RYSAS.IS", "CWENE.IS",
+    "HEKTS.IS", "SOKM.IS", "BRISA.IS", "TKFEN.IS", "BSOKE.IS", "ODINE.IS", "TEHOL.IS", "KONYA.IS", "AKCNS.IS", "IZENR.IS",
+    "LYDYE.IS", "EGEEN.IS", "KLYPV.IS", "CVKMD.IS", "GLYHO.IS", "NTHOL.IS", "BTCIM.IS", "OZKGY.IS", "AVPGY.IS", "KCAER.IS",
+    "IPEKE.IS", "MOGAN.IS", "GESAN.IS", "AKFYE.IS", "BALSU.IS", "BFREN.IS", "SKBNK.IS", "BINBN.IS", "ARMGD.IS", "EUPWR.IS",
+    "KONTR.IS", "ALBRK.IS", "SNGYO.IS", "ENTRA.IS", "OBAMS.IS", "ISGYO.IS", "GSRAY.IS", "MIATK.IS", "BMSTL.IS", "MRSHL.IS",
+    "TATEN.IS", "AKSGY.IS", "SUNTK.IS", "KUYAS.IS", "TRHOL.IS", "BANVT.IS", "ZOREN.IS", "PATEK.IS", "ALFAS.IS", "ARASE.IS",
+    "CANTE.IS", "LOGO.IS", "ATATP.IS", "SMRTG.IS", "LILAK.IS", "SARKY.IS", "FZLGY.IS", "FENER.IS", "LMKDC.IS", "ALTNY.IS",
+    "ESEN.IS", "HLGYO.IS", "HTTBT.IS", "PSGYO.IS", "CRFSA.IS", "KLKIM.IS", "CEMZY.IS", "ISKPL.IS", "KZBGY.IS", "AKFIS.IS",
+    "ASUZU.IS", "EGPRO.IS", "BINHO.IS", "ISFIN.IS", "YEOTK.IS", "JANTS.IS", "AYDEM.IS", "ADGYO.IS", "VESBE.IS", "KSTUR.IS",
+    "EUREN.IS", "ENSRI.IS", "ULUSE.IS", "DEVA.IS", "KOTON.IS", "OZATD.IS", "KAYSE.IS", "GWIND.IS", "BULGS.IS", "TMSN.IS",
+    "GEDIK.IS", "DOFRB.IS", "VSNMD.IS", "BERA.IS", "OYYAT.IS", "TUKAS.IS", "VERUS.IS", "ICBCT.IS", "YYLGD.IS", "MEGMT.IS",
+    "ALKLC.IS", "SONME.IS", "AKGRT.IS", "VAKFN.IS", "BIENY.IS", "DGGYO.IS", "AHSGY.IS", "AKFGY.IS", "BIOEN.IS", "VESTL.IS",
+    "ESCAR.IS", "AYCES.IS", "SDTTR.IS", "SRVGY.IS", "GARFA.IS", "GLCVY.IS", "QUAGR.IS", "ECOGR.IS", "INVEO.IS", "TRCAS.IS",
+    "EGGUB.IS", "INGRM.IS", "ALCAR.IS", "KORDS.IS", "TSPOR.IS", "IZMDC.IS", "VAKKO.IS", "BUCIM.IS", "BASCM.IS", "VKGYO.IS",
+    "KLGYO.IS", "HATSN.IS", "ADEL.IS", "EMKEL.IS", "AKENR.IS", "AGROT.IS", "KBORU.IS", "TNZTP.IS", "BOSSA.IS", "TUREX.IS",
+    "KARSN.IS", "TCKRC.IS", "OFSYM.IS", "EBEBK.IS", "ADESE.IS", "GIPTA.IS", "SURGY.IS", "MOBTL.IS", "ALGYO.IS", "BESLR.IS",
+    "IZFAS.IS", "AKMGY.IS", "GOZDE.IS", "BJKAS.IS", "A1CAP.IS", "PRKAB.IS", "ODAS.IS", "KAREL.IS", "MNDTR.IS", "GENTS.IS",
+    "HRKET.IS", "PARSN.IS", "KOPOL.IS", "GOKNR.IS", "BLUME.IS", "REEDR.IS", "YIGIT.IS", "EKOS.IS", "MOPAS.IS", "ALKA.IS",
+    "ASGYO.IS", "NTGAZ.IS", "KMPUR.IS", "TARKM.IS", "ATAKP.IS", "GEREL.IS", "AYEN.IS", "BOBET.IS", "KOCMT.IS", "MAALT.IS",
+    "PAGYO.IS", "NATEN.IS", "DOKTA.IS", "BARMA.IS", "KAPLM.IS", "ERCB.IS", "YBTAS.IS", "GMTAS.IS", "IHAAS.IS", "ENDAE.IS",
+    "BIGCH.IS", "KGYO.IS", "MERIT.IS", "SNPAM.IS", "KARTN.IS", "BORLS.IS", "TEZOL.IS", "GZNMI.IS", "BIGTK.IS", "DESA.IS",
+    "SUWEN.IS", "CGCAM.IS", "IHLAS.IS", "GOLTS.IS", "KRVGD.IS", "KONKA.IS", "INDES.IS", "BORSK.IS", "ORGE.IS", "DARDL.IS",
+    "ONCSM.IS", "ISGSY.IS", "KUVVA.IS", "INTEM.IS", "PENTA.IS", "SAFKR.IS", "CATES.IS", "PLTUR.IS", "HOROZ.IS", "CRDFA.IS",
+    "AFYON.IS", "ARSAN.IS", "ULUUN.IS", "CEMTS.IS", "LINK.IS", "SEGYO.IS", "FORTE.IS", "YATAS.IS", "EGEGY.IS", "TKNSA.IS",
+    "KZGYO.IS", "BIGEN.IS", "ALKIM.IS", "OZYSR.IS", "TSGYO.IS", "ARDYZ.IS", "FMIZP.IS", "MHRGY.IS", "BRKVY.IS", "ORMA.IS",
+    "IMASM.IS", "GUNDG.IS", "GSDHO.IS", "DMRGD.IS", "YUNSA.IS", "ALCTL.IS", "ANELE.IS", "AZTEK.IS", "TMPOL.IS", "BEGYO.IS",
+    "MACKO.IS", "NETAS.IS", "SOKE.IS", "ELITE.IS", "CEMAS.IS", "ALVES.IS", "USAK.IS", "DYOBY.IS", "GOODY.IS", "MNDRS.IS",
+    "EGEPO.IS", "FORMT.IS", "LRSHO.IS", "BAGFS.IS", "ONRYT.IS", "BVSAN.IS", "RUZYE.IS", "KUTPO.IS", "CMBTN.IS", "ERBOS.IS",
+    "HDFGS.IS", "INFO.IS", "HURGZ.IS", "DCTTR.IS", "KIMMR.IS", "YAPRK.IS", "SERNT.IS", "KATMR.IS", "PINSU.IS", "SAYAS.IS",
+    "HUNER.IS", "PNSUT.IS", "OSMEN.IS", "TURGG.IS", "LKMNH.IS", "EKSUN.IS", "EYGYO.IS", "MEKAG.IS", "KRGYO.IS", "PETUN.IS",
+    "PAPIL.IS", "MERCN.IS", "OTTO.IS", "TEKTU.IS", "SEGMN.IS", "DITAS.IS", "MEDTR.IS", "ISSEN.IS", "SANKO.IS", "BURCE.IS",
+    "DOFER.IS", "KTSKR.IS", "TATGD.IS", "BLCYT.IS", "KNFRT.IS", "DAGI.IS", "BRLSM.IS", "MRGYO.IS", "TRILC.IS", "ISBIR.IS",
+    "NUGYO.IS", "LUKSK.IS", "MARBL.IS", "BAHKM.IS", "PNLSN.IS", "ARTMS.IS", "DZGYO.IS", "MSGYO.IS", "DERHL.IS", "IHLGM.IS",
+    "BAKAB.IS", "BEYAZ.IS", "ARENA.IS", "FONET.IS", "TGSAS.IS", "MAKTK.IS", "PAMEL.IS", "GLRYH.IS", "PCILT.IS", "SANFM.IS",
+    "METRO.IS", "MTRKS.IS", "CELHA.IS", "SNICA.IS", "SKYLP.IS", "LIDFA.IS", "KRONT.IS", "ANGEN.IS", "PRKME.IS", "DUNYH.IS",
+    "CONSE.IS", "OZSUB.IS", "DNISI.IS", "VRGYO.IS", "UNLU.IS", "ESCOM.IS", "EDATA.IS", "INTEK.IS", "KLMSN.IS", "EDIP.IS",
+    "BURVA.IS", "KLSYN.IS", "EGSER.IS", "AYES.IS", "DOGUB.IS", "DGATE.IS", "DENGE.IS", "KRSTL.IS", "BMSCH.IS", "ULUFA.IS",
+    "ATEKS.IS", "TDGYO.IS", "YGYO.IS", "BIZIM.IS", "DMSAS.IS", "YYAPI.IS", "FRIGO.IS", "DGNMO.IS", "BYDNR.IS", "TLMAN.IS",
+    "VBTYZ.IS", "DURDO.IS", "SNKRN.IS", "DERIM.IS", "RTALB.IS", "AGYO.IS", "SKYMD.IS", "VERTU.IS", "MAKIM.IS", "VKING.IS",
+    "DURKN.IS", "MARTI.IS", "OSTIM.IS", "KFEIN.IS", "OZGYO.IS", "SUMAS.IS", "SODSN.IS", "EUHOL.IS", "TUCLK.IS", "A1YEN.IS",
+    "PKART.IS", "OBASE.IS", "IHGZT.IS", "RUBNS.IS", "YESIL.IS", "MERKO.IS", "BNTAS.IS", "CUSAN.IS", "MANAS.IS", "PENGD.IS",
+    "ZEDUR.IS", "RNPOL.IS", "HATEK.IS", "AVHOL.IS", "YAYLA.IS", "YKSLN.IS", "GSDDE.IS", "GLBMD.IS", "KRPLS.IS", "BAYRK.IS",
+    "KERVN.IS", "MMCAS.IS", "HKTM.IS", "AVGYO.IS", "GEDZA.IS", "MEPET.IS", "PRDGS.IS", "IZINV.IS", "NIBAS.IS", "SEYKM.IS",
+    "FADE.IS", "CEOEM.IS", "BRKO.IS", "EMNIS.IS", "AKSUE.IS", "BALAT.IS", "DESPC.IS", "ACSEL.IS", "COSMO.IS", "EPLAS.IS",
+    "YONGA.IS", "PSDTC.IS", "OYAYO.IS", "VANGD.IS", "SKTAS.IS", "IHYAY.IS", "MEGAP.IS", "AVOD.IS", "PRZMA.IS", "SILVR.IS",
+    "ETILR.IS", "SELVA.IS", "BRMEN.IS", "KRTEK.IS", "MARKA.IS", "OYLUM.IS", "FLAP.IS", "SEKFK.IS", "IHEVA.IS", "ARZUM.IS",
+    "SANEL.IS", "OZRDN.IS", "AKYHO.IS", "EKIZ.IS", "HUBVC.IS", "ULAS.IS", "SMART.IS", "AVTUR.IS", "BRKSN.IS", "SAMAT.IS",
+    "MZHLD.IS", "ATAGY.IS", "ERSU.IS", "VKFYO.IS", "ATSYH.IS", "RODRG.IS", "SEKUR.IS", "ETYAT.IS", "CASA.IS", "GRNYO.IS",
+    "IDGYO.IS", "ATLAS.IS", "MTRYO.IS", "ORCAY.IS", "EUKYO.IS", "DIRIT.IS", "EUYO.IS"
+    ],
+
+
+
     "BIST 50": [
     "AEFES.IS", "AKBNK.IS", "ALARK.IS", "ARCLK.IS", "ASELS.IS", "ASTOR.IS", "BIMAS.IS", "BRSAN.IS",
     "CCOLA.IS", "CIMSA.IS", "DOAS.IS", "DOHOL.IS", "EKGYO.IS", "ENJSA.IS", "ENKAI.IS", "EREGL.IS",
@@ -287,31 +351,56 @@ def analyze_stock(symbol: str) -> Optional[StockSignal]:
         wt_signal = None  # 'BUY', 'SELL' veya None
         wt_msg = ""
         
+        # Aşırı Alım ve Aşırı Satım Seviyeleri Tanımlamaları
+        oversold_limit = -30  # AL sinyali için kontrol seviyesi
+        overbought_limit = 30  # SAT sinyali için kontrol seviyesi
+        
         # 1. Öncelik: BUGÜN (Son Mum)
-        if (wt1.iloc[-1] > wt2.iloc[-1]) and (wt1.iloc[-2] <= wt2.iloc[-2]):
+        wt_cross_buy_today = (wt1.iloc[-1] > wt2.iloc[-1]) and (wt1.iloc[-2] <= wt2.iloc[-2])
+        wt_cross_sell_today = (wt1.iloc[-1] < wt2.iloc[-1]) and (wt1.iloc[-2] >= wt2.iloc[-2])
+        
+        # SATIM Kontrolü: WT1 kesişmeden önce +30'un üstünde miydi?
+        overbought_condition = (wt1.iloc[-2] >= overbought_limit)
+        
+        if wt_cross_buy_today and (wt1.iloc[-2] <= oversold_limit): # AL: Sadece aşırı satım bölgesindeki kesişimi Al say
             wt_signal = "BUY"
-            wt_msg = "WaveTrend Al Kesişimi (Bugün)"
-        elif (wt1.iloc[-1] < wt2.iloc[-1]) and (wt1.iloc[-2] >= wt2.iloc[-2]):
+            wt_msg = "WaveTrend Al Kesişimi (Bugün, Aşırı Satım)"
+        elif wt_cross_sell_today and overbought_condition: # SAT: Sadece aşırı alım bölgesindeki kesişimi Sat say
             wt_signal = "SELL"
-            wt_msg = "WaveTrend Sat Kesişimi (Bugün)"
+            wt_msg = "WaveTrend Sat Kesişimi (Bugün, Aşırı Alım)"
+            
         
         # 2. Öncelik: DÜN (Bugün sinyal yoksa bakılır)
         if wt_signal is None:
-            if (wt1.iloc[-2] > wt2.iloc[-2]) and (wt1.iloc[-3] <= wt2.iloc[-3]):
+            wt_cross_buy_prev1 = (wt1.iloc[-2] > wt2.iloc[-2]) and (wt1.iloc[-3] <= wt2.iloc[-3])
+            wt_cross_sell_prev1 = (wt1.iloc[-2] < wt2.iloc[-2]) and (wt1.iloc[-3] >= wt2.iloc[-3])
+            
+            # Dün için aşırı alım/satım kontrolü
+            oversold_condition_prev1 = (wt1.iloc[-3] <= oversold_limit)
+            overbought_condition_prev1 = (wt1.iloc[-3] >= overbought_limit)
+            
+            if wt_cross_buy_prev1 and oversold_condition_prev1:
                 wt_signal = "BUY"
-                wt_msg = "WaveTrend Al Kesişimi (Dün)"
-            elif (wt1.iloc[-2] < wt2.iloc[-2]) and (wt1.iloc[-3] >= wt2.iloc[-3]):
+                wt_msg = "WaveTrend Al Kesişimi (Dün, Aşırı Satım)"
+            elif wt_cross_sell_prev1 and overbought_condition_prev1:
                 wt_signal = "SELL"
-                wt_msg = "WaveTrend Sat Kesişimi (Dün)"
+                wt_msg = "WaveTrend Sat Kesişimi (Dün, Aşırı Alım)"
 
         # 3. Öncelik: 2 GÜN ÖNCE (Bugün ve Dün sinyal yoksa bakılır)
-        if wt_signal is None:
-            if (wt1.iloc[-3] > wt2.iloc[-3]) and (wt1.iloc[-4] <= wt2.iloc[-4]):
+        if wt_signal is None and len(df) > 4:
+            wt_cross_buy_prev2 = (wt1.iloc[-3] > wt2.iloc[-3]) and (wt1.iloc[-4] <= wt2.iloc[-4])
+            wt_cross_sell_prev2 = (wt1.iloc[-3] < wt2.iloc[-3]) and (wt1.iloc[-4] >= wt2.iloc[-4])
+            
+            # 2 Gün Önce için aşırı alım/satım kontrolü
+            oversold_condition_prev2 = (wt1.iloc[-4] <= oversold_limit)
+            overbought_condition_prev2 = (wt1.iloc[-4] >= overbought_limit)
+
+            if wt_cross_buy_prev2 and oversold_condition_prev2:
                 wt_signal = "BUY"
-                wt_msg = "WaveTrend Al Kesişimi (2 Gün Önce)"
-            elif (wt1.iloc[-3] < wt2.iloc[-3]) and (wt1.iloc[-4] >= wt2.iloc[-4]):
+                wt_msg = "WaveTrend Al Kesişimi (2 Gün Önce, Aşırı Satım)"
+            elif wt_cross_sell_prev2 and overbought_condition_prev2:
                 wt_signal = "SELL"
-                wt_msg = "WaveTrend Sat Kesişimi (2 Gün Önce)"
+                wt_msg = "WaveTrend Sat Kesişimi (2 Gün Önce, Aşırı Alım)"
 
         # ------------------------------------------------------------------
         # YENİ WT KONTROLÜ SONA ERDİ
