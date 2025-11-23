@@ -357,13 +357,10 @@ async def scan_stocks(request: ScanRequest):
     group_name = request.group_name
     print(f"DEBUG: group_name = '{group_name}'")  # debug için
 
-    if group_name == "" or group_name == "Tüm Gruplar":
-        # Tüm gruplar
-        symbols = [s for group in BIST_GROUPS.values() for s in group]
-    else:
-        symbols = BIST_GROUPS.get(group_name, [])
-        if not symbols:
-            raise HTTPException(status_code=404, detail="Böyle bir grup bulunamadı")
+    symbols = BIST_GROUPS.get(request.group_name, [])
+    if not symbols:
+        raise HTTPException(status_code=404, detail="Böyle bir grup bulunamadı")
+
 
     loop = asyncio.get_event_loop()
     tasks = [loop.run_in_executor(executor, analyze_stock, symbol) for symbol in symbols]
